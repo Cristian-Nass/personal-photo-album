@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {db} from './service/firebase';
 import {collection, query, getDocs} from 'firebase/firestore';
+import NavbarView from './components/NavbarView';
+
 const getData = async (q: any) => {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
@@ -15,7 +17,12 @@ function App() {
     getData(q);
   }, []);
 
-  return <div className="App">Wellconme to Personal Photo Album</div>;
+  return (
+    <>
+      <div className="App">Wellconme to Personal Photo Album</div>
+      <NavbarView />
+    </>
+  );
 }
 
 export default App;
