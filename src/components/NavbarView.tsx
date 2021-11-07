@@ -11,6 +11,7 @@ import Menu from '@mui/material/Menu';
 
 export default function NavbarView() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -18,6 +19,14 @@ export default function NavbarView() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleHamburgerMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setHamburgerMenu(event.currentTarget);
+  };
+
+  const handleCloseHamburgerMenu = () => {
+    setHamburgerMenu(null);
   };
 
   return (
@@ -29,7 +38,8 @@ export default function NavbarView() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{mr: 2}}>
+            sx={{mr: 2}}
+            onClick={handleHamburgerMenu}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
@@ -45,6 +55,26 @@ export default function NavbarView() {
               color="inherit">
               <AccountCircle />
             </IconButton>
+            {/* BEGIN HAMBURGER MANU */}
+            <Menu
+              id="menu-hamburger"
+              anchorEl={hamburgerMenu}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(hamburgerMenu)}
+              onClose={handleCloseHamburgerMenu}>
+              <MenuItem onClick={handleCloseHamburgerMenu}>Home</MenuItem>
+              <MenuItem onClick={handleCloseHamburgerMenu}>About</MenuItem>
+            </Menu>
+            {/* END HAMBURGER MANU */}
+            {/* BEGIN PROFILE MANU */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
