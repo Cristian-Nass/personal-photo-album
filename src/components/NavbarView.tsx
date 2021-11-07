@@ -9,7 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-export default function NavbarView() {
+const NavbarView = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
 
@@ -97,4 +97,6 @@ export default function NavbarView() {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default NavbarView;
