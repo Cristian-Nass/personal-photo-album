@@ -9,11 +9,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {useTheme, makeStyles} from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
 import {Link} from 'react-router-dom';
 
 const NavbarView = () => {
-  // const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
 
@@ -30,11 +32,6 @@ const NavbarView = () => {
 
   const handleHamburgerMenu = (event: React.MouseEvent<HTMLElement>) => {
     setHamburgerMenu(event.currentTarget);
-  };
-
-  const handleCloseHamburgerMenu = (url: string) => {
-    console.log(url);
-    setHamburgerMenu(null);
   };
 
   return (
@@ -68,16 +65,27 @@ const NavbarView = () => {
                   }}
                   open={Boolean(hamburgerMenu)}
                   onClose={() => setHamburgerMenu(null)}>
-                  <MenuItem onClick={() => handleCloseHamburgerMenu('/home')}>
-                    <Link to="/">Home</Link>
+                  <MenuItem>
+                    <Link to="/" style={{textDecoration: 'none', color: 'black'}}>
+                      Home
+                    </Link>
                   </MenuItem>
-                  <MenuItem onClick={() => handleCloseHamburgerMenu('/about')}>
-                    <Link to="/about">About</Link>
+                  <MenuItem>
+                    <Link to="/about" style={{textDecoration: 'none', color: 'black'}}>
+                      About
+                    </Link>
                   </MenuItem>
                 </Menu>
               </>
             ) : (
-              <Typography>No mobile</Typography>
+              <ButtonGroup
+                variant="contained"
+                aria-label="outlined primary button group"
+                style={{boxShadow: 'none'}}>
+                <Button>Home</Button>
+                <Button>About</Button>
+                <Button>Contact</Button>
+              </ButtonGroup>
             )}
           </div>
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
