@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,15 +13,15 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import {Link} from 'react-router-dom';
 
 const navbarItems = [
   {menuTitle: 'Home', pageUrl: '/'},
   {menuTitle: 'About', pageUrl: '/about'},
-  {menuTitle: 'Contact', pageUrl: '/about'},
+  {menuTitle: 'Contact', pageUrl: '/contact'},
 ];
 
 const NavbarView = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
 
@@ -37,6 +38,11 @@ const NavbarView = () => {
 
   const handleHamburgerMenu = (event: React.MouseEvent<HTMLElement>) => {
     setHamburgerMenu(event.currentTarget);
+  };
+
+  const changePage = (url: string) => {
+    setHamburgerMenu(null);
+    navigate(url, {replace: true});
   };
 
   return (
@@ -71,10 +77,8 @@ const NavbarView = () => {
                   open={Boolean(hamburgerMenu)}
                   onClose={() => setHamburgerMenu(null)}>
                   {navbarItems.map((menu, index) => (
-                    <MenuItem key={index}>
-                      <Link to={menu.pageUrl} style={{textDecoration: 'none', color: 'black'}}>
-                        {menu.menuTitle}
-                      </Link>
+                    <MenuItem key={index} onClick={() => changePage(menu.pageUrl)}>
+                      {menu.menuTitle}
                     </MenuItem>
                   ))}
                 </Menu>
@@ -82,11 +86,12 @@ const NavbarView = () => {
             ) : (
               <Stack direction="row" spacing={2}>
                 {navbarItems.map((menu, index) => (
-                  <Link to={menu.pageUrl} style={{textDecoration: 'none'}} key={index}>
-                    <Button style={{color: 'white'}} onClick={() => console.log('TEST')}>
-                      {menu.menuTitle}
-                    </Button>
-                  </Link>
+                  <Button
+                    style={{color: 'white'}}
+                    onClick={() => changePage(menu.pageUrl)}
+                    key={index}>
+                    {menu.menuTitle}
+                  </Button>
                 ))}
               </Stack>
             )}
@@ -115,7 +120,7 @@ const NavbarView = () => {
             }}
             open={Boolean(anchorEl)}
             onClose={handleClose}>
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Sign Up</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
           </Menu>
         </Toolbar>

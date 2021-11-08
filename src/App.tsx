@@ -6,12 +6,13 @@ import {collection, query, getDocs} from 'firebase/firestore';
 import NavbarView from './components/NavbarView';
 import HomeView from './components/views/HomeView';
 import AboutView from './components/views/AboutView';
+import ContactView from './components/views/ContactView';
 
 const getData = async (q: any) => {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
+    // console.log(doc.id, ' => ', doc.data());
   });
 };
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeView />} />
             <Route path="/about" element={<AboutView />} />
+            <Route path="/contact" element={<ContactView />} />
           </Routes>
         </BrowserRouter>
       </div>
