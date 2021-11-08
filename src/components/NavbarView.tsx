@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -86,11 +86,10 @@ const NavbarView = () => {
             ) : (
               <Stack direction="row" spacing={2}>
                 {navbarItems.map((menu, index) => (
-                  <Button
-                    style={{color: 'white'}}
-                    onClick={() => changePage(menu.pageUrl)}
-                    key={index}>
-                    {menu.menuTitle}
+                  <Button key={index}>
+                    <Link to={menu.pageUrl} style={{color: 'white', textDecoration: 'none'}}>
+                      {menu.menuTitle}
+                    </Link>
                   </Button>
                 ))}
               </Stack>
