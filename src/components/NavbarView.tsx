@@ -8,10 +8,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {useTheme, makeStyles} from '@mui/material/styles';
+import {Link} from 'react-router-dom';
 
 const NavbarView = () => {
+  // const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,7 +32,8 @@ const NavbarView = () => {
     setHamburgerMenu(event.currentTarget);
   };
 
-  const handleCloseHamburgerMenu = () => {
+  const handleCloseHamburgerMenu = (url: string) => {
+    console.log(url);
     setHamburgerMenu(null);
   };
 
@@ -33,66 +41,74 @@ const NavbarView = () => {
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{mr: 2}}
-            onClick={handleHamburgerMenu}>
-            <MenuIcon />
-          </IconButton>
+          <div>
+            {isMobile ? (
+              <>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{mr: 2}}
+                  onClick={handleHamburgerMenu}>
+                  <MenuIcon />
+                </IconButton>
+
+                <Menu
+                  id="menu-hamburger"
+                  anchorEl={hamburgerMenu}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(hamburgerMenu)}
+                  onClose={() => setHamburgerMenu(null)}>
+                  <MenuItem onClick={() => handleCloseHamburgerMenu('/home')}>
+                    <Link to="/">Home</Link>
+                  </MenuItem>
+                  <MenuItem onClick={() => handleCloseHamburgerMenu('/about')}>
+                    <Link to="/about">About</Link>
+                  </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <Typography>No mobile</Typography>
+            )}
+          </div>
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
             Photos
           </Typography>
-          <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit">
-              <AccountCircle />
-            </IconButton>
-            {/* BEGIN HAMBURGER MANU */}
-            <Menu
-              id="menu-hamburger"
-              anchorEl={hamburgerMenu}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(hamburgerMenu)}
-              onClose={handleCloseHamburgerMenu}>
-              <MenuItem onClick={handleCloseHamburgerMenu}>Home</MenuItem>
-              <MenuItem onClick={handleCloseHamburgerMenu}>About</MenuItem>
-            </Menu>
-            {/* END HAMBURGER MANU */}
-            {/* BEGIN PROFILE MANU */}
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}>
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Menu>
-          </div>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit">
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}>
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>
