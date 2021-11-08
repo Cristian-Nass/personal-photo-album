@@ -61,7 +61,6 @@ const NavbarView = () => {
                   onClick={handleHamburgerMenu}>
                   <MenuIcon />
                 </IconButton>
-
                 <Menu
                   id="menu-hamburger"
                   anchorEl={hamburgerMenu}
