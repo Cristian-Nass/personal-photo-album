@@ -15,6 +15,12 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 import {Link} from 'react-router-dom';
 
+const navbarItems = [
+  {menuTitle: 'Home', pageUrl: '/'},
+  {menuTitle: 'About', pageUrl: '/about'},
+  {menuTitle: 'Contact', pageUrl: '/about'},
+];
+
 const NavbarView = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
@@ -65,16 +71,13 @@ const NavbarView = () => {
                   }}
                   open={Boolean(hamburgerMenu)}
                   onClose={() => setHamburgerMenu(null)}>
-                  <MenuItem>
-                    <Link to="/" style={{textDecoration: 'none', color: 'black'}}>
-                      Home
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link to="/about" style={{textDecoration: 'none', color: 'black'}}>
-                      About
-                    </Link>
-                  </MenuItem>
+                  {navbarItems.map((menu, index) => (
+                    <MenuItem key={index}>
+                      <Link to={menu.pageUrl} style={{textDecoration: 'none', color: 'black'}}>
+                        {menu.menuTitle}
+                      </Link>
+                    </MenuItem>
+                  ))}
                 </Menu>
               </>
             ) : (
@@ -82,9 +85,13 @@ const NavbarView = () => {
                 variant="contained"
                 aria-label="outlined primary button group"
                 style={{boxShadow: 'none'}}>
-                <Button>Home</Button>
-                <Button>About</Button>
-                <Button>Contact</Button>
+                {navbarItems.map((menu, index) => (
+                  <Button key={index}>
+                    <Link to={menu.pageUrl} style={{textDecoration: 'none', color: 'white'}}>
+                      {menu.menuTitle}
+                    </Link>
+                  </Button>
+                ))}
               </ButtonGroup>
             )}
           </div>
