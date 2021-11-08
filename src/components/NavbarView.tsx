@@ -11,8 +11,7 @@ import Menu from '@mui/material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-
+import Stack from '@mui/material/Stack';
 import {Link} from 'react-router-dom';
 
 const navbarItems = [
@@ -48,7 +47,7 @@ const NavbarView = () => {
             {isMobile ? (
               <>
                 <IconButton
-                  size="large"
+                  size="small"
                   edge="end"
                   color="inherit"
                   aria-label="menu"
@@ -81,23 +80,18 @@ const NavbarView = () => {
                 </Menu>
               </>
             ) : (
-              <ButtonGroup
-                variant="contained"
-                aria-label="outlined primary button group"
-                style={{boxShadow: 'none'}}>
+              <Stack direction="row" spacing={2}>
                 {navbarItems.map((menu, index) => (
-                  <Button key={index}>
-                    <Link to={menu.pageUrl} style={{textDecoration: 'none', color: 'white'}}>
+                  <Link to={menu.pageUrl} style={{textDecoration: 'none'}} key={index}>
+                    <Button style={{color: 'white'}} onClick={() => console.log('TEST')}>
                       {menu.menuTitle}
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 ))}
-              </ButtonGroup>
+              </Stack>
             )}
           </div>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-            Photos
-          </Typography>
+          <Typography variant="h6" component="div" sx={{flexGrow: 1}}></Typography>
           <IconButton
             size="large"
             aria-label="account of current user"
