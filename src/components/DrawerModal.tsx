@@ -13,7 +13,7 @@ import MailIcon from '@mui/icons-material/Mail';
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function DrawerModal() {
-  const [state, setState] = React.useState({left: false});
+  const [state, setState] = React.useState(false);
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -24,8 +24,8 @@ export default function DrawerModal() {
       ) {
         return;
       }
-
-      setState({...state, [anchor]: open});
+      setState(!state);
+      // setState({...state, [anchor]: open});
     };
 
   const list = (anchor: Anchor) => (
@@ -58,8 +58,8 @@ export default function DrawerModal() {
     <div>
       {/* {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => ( */}
       <React.Fragment>
-        <Button onClick={toggleDrawer('left', true)}>Left</Button>
-        <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
+        <Button onClick={toggleDrawer('left', true)}>Gallery</Button>
+        <Drawer anchor={'left'} open={state} onClose={toggleDrawer('left', false)}>
           {list('left')}
         </Drawer>
       </React.Fragment>
