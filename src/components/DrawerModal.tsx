@@ -10,30 +10,26 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
-
 export default function DrawerModal() {
   const [state, setState] = React.useState(false);
 
-  const toggleDrawer =
-    (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return;
-      }
-      setState(!state);
-      // setState({...state, [anchor]: open});
-    };
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+    setState(!state);
+  };
 
-  const list = (anchor: Anchor) => (
+  const list = () => (
     <Box
-      sx={{width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
+      sx={{width: 250}}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}>
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}>
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -56,14 +52,12 @@ export default function DrawerModal() {
 
   return (
     <div>
-      {/* {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => ( */}
       <React.Fragment>
-        <Button onClick={toggleDrawer('left', true)}>Gallery</Button>
-        <Drawer anchor={'left'} open={state} onClose={toggleDrawer('left', false)}>
-          {list('left')}
+        <Button onClick={toggleDrawer(true)}>Gallery</Button>
+        <Drawer anchor={'left'} open={state} onClose={toggleDrawer(false)}>
+          {list()}
         </Drawer>
       </React.Fragment>
-      {/* ))} */}
     </div>
   );
 }
