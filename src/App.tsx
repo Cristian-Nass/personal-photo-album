@@ -7,7 +7,6 @@ import NavbarView from './components/NavbarView';
 import HomeView from './components/views/HomeView';
 import AboutView from './components/views/AboutView';
 import ContactView from './components/views/ContactView';
-import DrawerModal from './components/DrawerModal';
 
 const getData = async (q: any) => {
   const querySnapshot = await getDocs(q);
