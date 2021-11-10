@@ -12,7 +12,7 @@ import Menu from '@mui/material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const navbarItems = [
   {menuTitle: 'Home', pageUrl: '/'},
@@ -43,6 +43,10 @@ const NavbarView = () => {
   const changePage = (url: string) => {
     setHamburgerMenu(null);
     navigate(url);
+  };
+
+  const galleryDrawerToggle = () => {
+    console.log('Test');
   };
 
   return (
@@ -83,7 +87,13 @@ const NavbarView = () => {
                 </Menu>
               </>
             ) : (
-              <Stack direction="row" spacing={2}>
+              <ButtonGroup
+                variant="contained"
+                aria-label="outlined primary button group"
+                style={{boxShadow: 'none'}}>
+                <Button style={{color: 'white'}} onClick={galleryDrawerToggle}>
+                  Gallery
+                </Button>
                 {navbarItems.map((menu, index) => (
                   <Button key={index}>
                     <Link to={menu.pageUrl} style={{color: 'white', textDecoration: 'none'}}>
@@ -91,7 +101,8 @@ const NavbarView = () => {
                     </Link>
                   </Button>
                 ))}
-              </Stack>
+                {/* <Button>Gallery</Button> */}
+              </ButtonGroup>
             )}
           </div>
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}></Typography>
