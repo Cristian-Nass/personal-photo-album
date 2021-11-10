@@ -26,7 +26,6 @@ function App() {
     <>
       <div className="App">
         <BrowserRouter>
-          <DrawerModal />
           <NavbarView />
           <Routes>
             <Route path="/" element={<HomeView />} />

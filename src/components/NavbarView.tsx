@@ -14,6 +14,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import DrawerModal from './DrawerModal';
 
 const navbarItems = [
   {menuTitle: 'Home', pageUrl: '/'},
@@ -48,10 +49,8 @@ const NavbarView = () => {
   };
 
   const galleryDrawerToggle = () => {
-    setGalleryDrawer(!galleryDrawer);
+    setGalleryDrawer(true);
   };
-  console.log(galleryDrawer);
-
   return (
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static">
@@ -137,6 +136,10 @@ const NavbarView = () => {
           </Menu>
         </Toolbar>
       </AppBar>
+      <DrawerModal
+        galleryDrawer={galleryDrawer}
+        changeWord={(word: boolean) => setGalleryDrawer(word)}
+      />
     </Box>
   );
 };

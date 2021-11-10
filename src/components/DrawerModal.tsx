@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -10,8 +11,15 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-export default function DrawerModal() {
+interface GalleryDrawerToggle {
+  galleryDrawer: boolean;
+  changeWord: (a: boolean) => void;
+}
+export default function DrawerModal(props: GalleryDrawerToggle) {
   const [state, setState] = React.useState(false);
+  useEffect(() => {
+    setState(props.galleryDrawer);
+  }, [props.galleryDrawer]);
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -28,8 +36,14 @@ export default function DrawerModal() {
     <Box
       sx={{width: 250}}
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}>
+      onClick={() => {
+        toggleDrawer(false);
+        props.changeWord(false);
+      }}
+      onKeyDown={() => {
+        toggleDrawer(false);
+        props.changeWord(false);
+      }}>
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -53,8 +67,14 @@ export default function DrawerModal() {
   return (
     <div>
       <React.Fragment>
-        <Button onClick={toggleDrawer(true)}>Gallery</Button>
-        <Drawer anchor={'left'} open={state} onClose={toggleDrawer(false)}>
+        {/* <Button onClick={toggleDrawer(true)}>Gallery</Button> */}
+        <Drawer
+          anchor={'left'}
+          open={state}
+          onClose={() => {
+            toggleDrawer(false);
+            props.changeWord(false);
+          }}>
           {list()}
         </Drawer>
       </React.Fragment>
