@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -24,6 +25,7 @@ const NavbarView = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
+  const [galleryDrawer, setGalleryDrawer] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -46,8 +48,9 @@ const NavbarView = () => {
   };
 
   const galleryDrawerToggle = () => {
-    console.log('Test');
+    setGalleryDrawer(!galleryDrawer);
   };
+  console.log(galleryDrawer);
 
   return (
     <Box sx={{flexGrow: 1}}>
@@ -91,7 +94,7 @@ const NavbarView = () => {
                 variant="contained"
                 aria-label="outlined primary button group"
                 style={{boxShadow: 'none'}}>
-                <Button style={{color: 'white'}} onClick={galleryDrawerToggle}>
+                <Button style={{color: 'white'}} onClick={() => galleryDrawerToggle()}>
                   Gallery
                 </Button>
                 {navbarItems.map((menu, index) => (
