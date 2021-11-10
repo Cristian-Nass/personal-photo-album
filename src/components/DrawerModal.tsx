@@ -2,7 +2,6 @@ import * as React from 'react';
 import {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -67,7 +66,6 @@ export default function DrawerModal(props: GalleryDrawerToggle) {
   return (
     <div>
       <React.Fragment>
-        {/* <Button onClick={toggleDrawer(true)}>Gallery</Button> */}
         <Drawer
           anchor={'left'}
           open={state}

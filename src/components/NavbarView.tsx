@@ -103,7 +103,6 @@ const NavbarView = () => {
                     </Link>
                   </Button>
                 ))}
-                {/* <Button>Gallery</Button> */}
               </ButtonGroup>
             )}
           </div>
