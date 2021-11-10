@@ -86,6 +86,14 @@ const NavbarView = () => {
                       {menu.menuTitle}
                     </MenuItem>
                   ))}
+                  <Button
+                    style={{color: 'black'}}
+                    onClick={() => {
+                      setHamburgerMenu(null);
+                      galleryDrawerToggle();
+                    }}>
+                    Gallery
+                  </Button>
                 </Menu>
               </>
             ) : (
