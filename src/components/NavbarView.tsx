@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,7 +13,8 @@ import Menu from '@mui/material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import DrawerModal from './DrawerModal';
 
 const navbarItems = [
   {menuTitle: 'Home', pageUrl: '/'},
@@ -24,6 +26,7 @@ const NavbarView = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [hamburgerMenu, setHamburgerMenu] = React.useState<null | HTMLElement>(null);
+  const [galleryDrawer, setGalleryDrawer] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -45,6 +48,9 @@ const NavbarView = () => {
     navigate(url);
   };
 
+  const galleryDrawerToggle = () => {
+    setGalleryDrawer(true);
+  };
   return (
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static">
@@ -83,7 +89,13 @@ const NavbarView = () => {
                 </Menu>
               </>
             ) : (
-              <Stack direction="row" spacing={2}>
+              <ButtonGroup
+                variant="contained"
+                aria-label="outlined primary button group"
+                style={{boxShadow: 'none'}}>
+                <Button style={{color: 'white'}} onClick={() => galleryDrawerToggle()}>
+                  Gallery
+                </Button>
                 {navbarItems.map((menu, index) => (
                   <Button key={index}>
                     <Link to={menu.pageUrl} style={{color: 'white', textDecoration: 'none'}}>
@@ -91,7 +103,7 @@ const NavbarView = () => {
                     </Link>
                   </Button>
                 ))}
-              </Stack>
+              </ButtonGroup>
             )}
           </div>
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}></Typography>
@@ -123,6 +135,10 @@ const NavbarView = () => {
           </Menu>
         </Toolbar>
       </AppBar>
+      <DrawerModal
+        galleryDrawer={galleryDrawer}
+        changeWord={(word: boolean) => setGalleryDrawer(word)}
+      />
     </Box>
   );
 };
