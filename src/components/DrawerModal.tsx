@@ -21,7 +21,7 @@ export default function DrawerModal() {
     ) {
       return;
     }
-    setState(!state);
+    setState(open);
   };
 
   const list = () => (
