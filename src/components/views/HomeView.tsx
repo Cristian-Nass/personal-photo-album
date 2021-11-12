@@ -1,7 +1,9 @@
+import SignInView from './SignInView';
+
 const HomeView = () => {
   return (
     <>
-      <div>HOME</div>
+      <SignInView />
     </>
   );
 };
