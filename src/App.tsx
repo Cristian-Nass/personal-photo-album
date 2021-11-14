@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import './App.css';
 import {db} from './service/firebase';
 import {collection, query, getDocs} from 'firebase/firestore';
@@ -7,6 +7,7 @@ import NavbarView from './components/NavbarView';
 import HomeView from './components/views/HomeView';
 import AboutView from './components/views/AboutView';
 import ContactView from './components/views/ContactView';
+import SignUpView from './components/views/SignUpView';
 
 const getData = async (q: any) => {
   const querySnapshot = await getDocs(q);
@@ -27,9 +28,11 @@ function App() {
         <BrowserRouter>
           <NavbarView />
           <Routes>
-            <Route path="/" element={<HomeView />} />
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<HomeView />} />
             <Route path="/about" element={<AboutView />} />
             <Route path="/contact" element={<ContactView />} />
+            <Route path="/sign-up" element={<SignUpView />} />
           </Routes>
         </BrowserRouter>
       </div>
